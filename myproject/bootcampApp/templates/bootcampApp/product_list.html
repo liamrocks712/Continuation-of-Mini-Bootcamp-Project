@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #444;
+            margin: 20px 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007BFF;
+        }
+
+        a:hover {
+            color: #0056b3;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .add-product {
+            display: inline-block;
+            margin-bottom: 20px;
+            background-color: #28a745;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 4px;
+        }
+
+        .add-product:hover {
+            background-color: #218838;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        li:last-child {
+            border-bottom: none;
+        }
+
+        .product-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            margin-right: 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-info {
+            flex-grow: 1;
+        }
+
+        .product-title {
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .product-description {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .product-price {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .action-buttons {
+            margin-top: 10px;
+        }
+
+        .action-buttons a {
+            margin-right: 10px;
+            padding: 5px 10px;
+            border-radius: 4px;
+            background-color: #ffc107;
+            color: #fff;
+        }
+
+        .action-buttons a:hover {
+            background-color: #e0a800;
+        }
+
+        .action-buttons a.delete {
+            background-color: #dc3545;
+        }
+
+        .action-buttons a.delete:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Product List</h1>
+        <a href="{% url 'product_create' %}" class="add-product">Add New Product</a>
+        <ul>
+            {% for product in products %}
+                <li>
+                    <img src="{{ product.image.url }}" alt="{{ product.title }}" class="product-image">
+                    <div class="product-info">
+                        <span class="product-title">{{ product.title }}</span>
+                        <span class="product-description">{{ product.description }}</span>
+                        <span class="product-price">${{ product.price }}</span>
+                    </div>
+                    <div class="action-buttons">
+                        <a href="{% url 'product_update' product.pk %}">Edit</a>
+                        <a href="{% url 'product_delete' product.pk %}" class="delete">Delete</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
